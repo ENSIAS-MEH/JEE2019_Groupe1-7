@@ -184,10 +184,7 @@
 								<div class="product">
                                                                     <img src="<%= vp.get(i).getImage() %>" alt="image produit" />
 									<div class="desc">
-                                                                            <p>Titre : <%= vp.get(i).getLibProduit() %></p> 
-                                                                            
-                                                                            <p>Catégorie : <%= cdao.getLibCategorie(vp.get(i).getCategorie().getIdCategorie()) %></p> 
-                                                                            
+                                                                            <p>Titre : <%= vp.get(i).getLibProduit() %></p>
 										<p class="price">Prix : <%= vp.get(i).getPrix() %></p>
                                                                                <p>Qte en Stock: <%= vp.get(i).getQteStock() %></p> 
 
