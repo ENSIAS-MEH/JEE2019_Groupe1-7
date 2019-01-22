@@ -1,0 +1,53 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[french]{babel}
+\usepackage{fullpage}
+
+\usepackage{tikz-uml}
+
+\sloppy
+\hyphenpenalty 10000000
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}
+\begin{umlseqdiag}
+\umlactor[no ddots]{Visiteur}
+\umlboundary[class=Vue, fill=blue!20]{FenetreAuth}
+\umlcontrol[class=Controleur,x=8.5, fill=blue!20]{ServletConnexion}
+\umlentity[class=Modele,x=13, fill=blue!20]{ClientDAO}
+
+\begin{umlcall}[op=SaisirInformation(), type=synchron]{Visiteur}{FenetreAuth}
+\begin{umlcallself}[op=VerificationChamps(), type=synchron]{FenetreAuth}
+\end{umlcallself}
+\begin{umlcall}[op=EnvoyerInfo(), type=synchron]{FenetreAuth}{ServletConnexion}
+\begin{umlcall}[op=EnvoyerInfo(string\,String), type=synchron,return=Afficher()]{ServletConnexion}{ClientDAO}
+\begin{umlcallself}[op=VerifiInfos(), type=synchron]{ClientDAO}
+\end{umlcallself}
+\end{umlcall}
+\begin{umlfragment}[type=alt, label=Informations fausses]
+\begin{umlcall}[op=MessageErreur(), type=synchron]{ServletConnexion}{FenetreAuth}
+\umlcreatecall[no ddots, draw obj=red!70!black, fill obj=red!20, draw=blue!70,x=1.5]{FenetreAuth}{Erreur Auth} 
+\begin{umlcall}[op=AfficherErreur(), type=synchron]{FenetreAuth}{Erreur Auth}
+\begin{umlcall}[op=ResaisirInfo(), type=synchron]{Erreur Auth}{Visiteur}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+\end{umlfragment}
+\end{umlcall}
+\end{umlcall}
+\begin{umlfragment}[type=alt, label=Informations correctes]
+\begin{umlcall}[op=CompteClient(), type=synchron]{ServletConnexion}{FenetreAuth}
+\umlcreatecall[no ddots, draw obj=red!70!black, fill obj=red!20, draw=blue!70,x=1.5]{FenetreAuth}{Espace Client} 
+\end{umlcall}
+\end{umlfragment} 
+
+
+
+
+\end{umlseqdiag}
+\end{tikzpicture}
+\end{center}
+\end{document}
