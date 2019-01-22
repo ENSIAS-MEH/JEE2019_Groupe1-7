@@ -1,0 +1,65 @@
+\documentclass[14pt]{article}
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\usepackage{tikz}
+\usetikzlibrary{%
+arrows,
+shapes,
+chains,
+matrix,
+positioning,
+shapes.multipart,
+calc,
+scopes}
+\usepackage{tikz-uml} 
+\usepackage{ifthen}
+\usepackage{xstring}
+\usepackage{pgfkeys}
+
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}
+\begin{umlsystem}[x=4, fill=red!10]{E-boutique de livre} 
+  \umlusecase[name=case1,x=3]{consulter livres}
+  \umlusecase[name=case13,x=3,y=-1]{creer un compte} 
+  \umlusecase[name=case2,x=3,y=-2.7, width=1.7cm]{ajouter des livres au panier}
+  \umlusecase[name=case3,x=3,y=-4.7, fill=green!20]{s'authentifier}
+  \umlusecase[name=case7,y=-7]{enregistrer panier}
+  \umlusecase[name=case8,y=-9, width=2cm]{passer commande}
+  \umlusecase[name=case9,y=-11, width=2cm]{consulter ses commandes}
+  \umlusecase[name=case6,x=6, y=-7]{gerer les categories}
+  \umlusecase[name=case10,x=6, y=-8.5]{gerer les livres}
+  \umlusecase[name=case11,x=6, y=-10]{gerer les clients}
+  \umlusecase[name=case12,x=6, y=-11.5]{gerer les commandes}
+
+\end{umlsystem}
+
+\umlactor{visiteur} 
+\umlactor[y=-6.5]{client} 
+\umlactor[x=14.5, y=-6.5]{administrateur}
+
+\umlinherit{client}{visiteur}
+\umlassoc{visiteur}{case1}
+\umlassoc{visiteur}{case2} 
+\umlassoc{visiteur}{case13}
+\umlassoc{client}{case3}
+\umlassoc{client}{case7}
+\umlassoc{client}{case8} 
+\umlassoc{client}{case9} 
+\umlassoc{administrateur}{case3} 
+\umlassoc{administrateur}{case6}
+\umlassoc{administrateur}{case10}
+\umlassoc{administrateur}{case11}
+\umlassoc{administrateur}{case12}
+
+\umlinclude[name=incl]{case7}{case3}
+\umlinclude[name=incl]{case8}{case3}
+\umlinclude[name=incl]{case9}{case3}
+\umlinclude[name=incl]{case6}{case3}
+\umlinclude[name=incl]{case10}{case3}
+\umlinclude[name=incl]{case11}{case3}
+\umlinclude[name=incl]{case12}{case3}
+
+\end{tikzpicture}
+\end{center}
+\end{document}
