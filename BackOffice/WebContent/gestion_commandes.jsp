@@ -31,7 +31,7 @@
 		<div id="wrapper-middle">
 			<!-- Header -->
 			<div id="header">
-				<h1 id="logo"><a title="home" href="#">Furniture Store</a></h1>				
+				<h1 id="logo"><a title="home" href="#">Book Store</a></h1>				
 				<!-- Search -->
 			
 				<!-- END Search -->				
