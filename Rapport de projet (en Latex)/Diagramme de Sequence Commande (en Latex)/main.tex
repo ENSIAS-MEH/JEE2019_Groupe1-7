@@ -1,9 +1,9 @@
 \documentclass[a4paper,0pt]{article}
-
 \usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[french]{babel}
 \usepackage{fullpage}
+
 
 \usepackage{tikz-uml}
 
@@ -11,17 +11,18 @@
 \hyphenpenalty 100000000
 
 \begin{document}
+
 \begin{center}
+\scalebox{0.95}{
 \begin{tikzpicture}
 \begin{umlseqdiag}
-\umlactor[no ddots]{Client}
-\umlboundary[class=Vue, fill=blue!20,x=2]{AchatLivre}
+\umlactor[no ddots,x=-2]{Client}
+\umlboundary[class=Vue,x=1.5, fill=blue!20]{AchatLivre}
 \umlcontrol[class=Controleur,x=5, fill=blue!20]{ControleAchat}
-\umlentity[class=Modele,x=8.2, fill=blue!20]{ModelAchat}
+\umlentity[class=Modele,x=9, fill=blue!20]{ModelAchat}
 
-\begin{umlcall}[op=ChoisirLivre(), type=synchron]{Client}{AchatLivre}
-\end{umlcall}
-\begin{umlcall}[op=ProcéderCommande(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=ChoisirLivres(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=PasserCmd(), type=synchron]{Client}{AchatLivre}
 \begin{umlcall}[op=Poursuite(), type=synchron]{AchatLivre}{ControleAchat}
 \begin{umlcall}[op=Poursuite, type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
 \begin{umlcallself}[op=Verification(), type=synchron]{ModelAchat}
@@ -30,17 +31,20 @@
 \end{umlcall}
 \end{umlcall}
 
-\begin{umlfragment}[type=alt Client existant non authentifié, label=existe]
-\begin{umlcall}[op=Authentification(), type=synchron]{Client}{AchatLivre}
+
+\begin{umlfragment}[type=alt,label= Sans Auth,inner ysep=6]
+
+\begin{umlfragment}[type=alt,label= Client existant]
+\begin{umlcall}[op=Auth(),type=synchron]{Client}{AchatLivre}
 \begin{umlcallself}[op=Verification(), type=synchron]{AchatLivre}
 \end{umlcallself}
 \end{umlcall}
-\begin{umlcall}[op=SaisirInfoFacture(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=Poursuite(), type=synchron]{Client}{AchatLivre}
 \begin{umlcall}[op=Enregistrement(), type=synchron]{AchatLivre}{ControleAchat}
 \begin{umlcall}[op=Enregistrement(), type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
 \end{umlcall}
 \begin{umlcall}[op=AfficherMsg(), type=synchron]{ControleAchat}{AchatLivre}
-\begin{umlcall}[op=Votre commande est recue(), type=synchron]{AchatLivre}{Client}
+\begin{umlcall}[op=CmdRecue(), type=synchron]{AchatLivre}{Client}
 \end{umlcall}
 \end{umlcall}
 \end{umlcall}
@@ -49,36 +53,38 @@
 
 
 
-\begin{umlfragment}[type=alt Client non existant, label=n'existe pas]
-\begin{umlcall}[op=Creation d un compte(), type=synchron]{Client}{AchatLivre}
+\begin{umlfragment}[type=alt,label= Client non existant]
+\begin{umlcall}[op=CreerCompte(), type=synchron]{Client}{AchatLivre}
 \begin{umlcall}[op=Enregistrement(), type=synchron]{AchatLivre}{ControleAchat}
 \begin{umlcall}[op=Enregistrement(), type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
 \end{umlcall}
 \begin{umlcall}[op=CompteClient(), type=synchron]{ControleAchat}{AchatLivre}
-\umlcreatecall[no ddots, draw obj=green!70!black, fill obj=green!20, draw=blue!70,x=1.5]{AchatLivre}{Espace Client}
+\umlcreatecall[no ddots, draw obj=green!70!black, fill obj=green!20, draw=blue!70,x=-0.7]{AchatLivre}{Espace Client}
 \end{umlcall}
 \end{umlcall}
 \end{umlcall}
 \end{umlfragment}
+\end{umlfragment}
 
-
-\begin{umlfragment}[type=alt Client Authentifié, label=Authentifie]
-\begin{umlcall}[op=SaisirInfoFacture(), type=synchron]{Client}{AchatLivre}
+\begin{umlfragment}[type=alt,label= Avec Auth]
+\begin{umlcall}[op=Poursuite(), type=synchron]{Client}{AchatLivre}
 \begin{umlcall}[op=Commander(), type=synchron]{AchatLivre}{ControleAchat}
 \begin{umlcall}[op=Commander(), type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
 \begin{umlcallself}[op=Enregistrement(), type=synchron]{ModelAchat}
 \end{umlcallself}
 \end{umlcall}
 \begin{umlcall}[op=AfficherMsg(), type=synchron]{ControleAchat}{AchatLivre}
-\begin{umlcall}[op=Votre commande est recue(), type=synchron]{AchatLivre}{Client}
+\begin{umlcall}[op=CmdRecue(), type=synchron]{AchatLivre}{Client}
 \end{umlcall}
 \end{umlcall}
 \end{umlcall}
 \end{umlcall}
 \end{umlfragment}
-
+\end{umlcall}
 
 \end{umlseqdiag}
 \end{tikzpicture}
+}
 \end{center}
+
 \end{document}
