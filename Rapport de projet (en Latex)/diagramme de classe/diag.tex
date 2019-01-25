@@ -8,7 +8,7 @@
 \begin{tikzpicture} 
 %administrateur%
 \tiny
-\begin{class}[text width=4cm,]{Administrateur}{0,0} 
+\begin{class}[text width=4cm,]{Administrateur}{0,8} 
 \attribute{nomAdmin : String} 
 \attribute{prenomAdmin : String} 
 \attribute{login : String} 
@@ -17,10 +17,7 @@
 \attribute{emailAdmin : String} 
 \operation{Administrateur() : void} 
 \operation{Administrateur(String) : void} 
-\operation{getNomAdmin() : void} 
-\operation{setNomAdmin(String ) : void} 
-\operation{getPrenomAdmin() : String} 
-\operation{setPrenomAdmin(String ) : void} 
+
 \operation{getLogin() : String} 
 \operation{setLogin(String ) : void} 
 \operation{getMotdepasse() : String} 
@@ -32,7 +29,7 @@
 
 \end{class} 
 
-\begin{class}[text width=4cm]{Categories}{0,8.5} 
+\begin{class}[text width=4cm]{Categories}{11,8.5} 
 \attribute{nomAdmin : String} 
 \attribute{libCategorie : String} 
 \attribute{produitCollection : Collection} 
@@ -64,29 +61,15 @@
 \operation{Client(String login): void}
 \operation{getLogin() :String} 
 \operation{setLogin(String ) : void} 
-\operation{getNomClient() : String} 
-\operation{setNomClient(String ): void}
-\operation{getPrenomClient() : String}  
-\operation{setPrenomClient(String ) : void}
-\operation{getEmailClient() : string} 
-\operation{setEmailClient(String)  : void} 
-\operation{getDateInscription() : void} 
-\operation{setDateInscription(String ) : string} 
-\operation{getMotdepasse()  : string} 
-\operation{setMotdepasse(String) : void} 
-\operation{getSexe(): string} 
-\operation{setSexe(String sexe) : void} 
-\operation{getDateNaissance() : string} 
-\operation{setDateNaissance(String ): void} 
-\operation{getAdresse() : string} 
-\operation{setAdresse(String ) : void} 
+
+
 \operation{getCommandeCollection()  : collection} 
 \operation{setCommandeCollection(Collection ): void} 
 \operation{getPanierCollection() : collection} 
 \operation{setPanierCollection(Collection): void} 
 \end{class} 
 
-\begin{class}[text width=5.3cm]{Commande}{11,0} 
+\begin{class}[text width=5.3cm]{Commande}{5,-8} 
 \attribute{idCmd :int} 
 \attribute{ldateCmd : String} 
 \attribute{etatCmd : string} 
@@ -100,12 +83,7 @@
 \operation{Commande(int) : void}
 \operation{getIdCmd() : int} 
 \operation{setIdCmd(Integer) : void} 
-\operation{getDateCmd() : string} 
-\operation{setDateCmd(String ) : void} 
-\operation{getEtatCmd() : string}
-\operation{setEtatCmd(String ) : void} 
-\operation{getClient() : client} 
-\operation{setClient(Client ) : void} 
+
 \operation{getFacture() : Facture} 
 \operation{setFacture(Facture )  : void} 
 \operation{getProduitCommandeCouleurCollection(): Collection} 
@@ -113,7 +91,7 @@
 \end{class} 
 
 
-\begin{class}[text width=4cm]{Facture}{11,8.5} 
+\begin{class}[text width=4cm]{Facture}{0,-4} 
 \attribute{numFacture :String} 
 \attribute{idCmd : int} 
 \attribute{prixTotal : float} 
@@ -124,19 +102,14 @@
 
 \operation{Facture(): void} 
 \operation{Facture(string) : void}
-\operation{Facture(string,int) : void} 
-\operation{getNumFacture() : string} 
-\operation{setNumFacture(String) : void} 
-\operation{getIdCmd() : int} 
-\operation{setIdCmd(int) : void}
-\operation{getPrixTotal() : Float} 
+
 \operation{setPrixTotal(Float) : void} 
 \operation{getCommandeCollection() : Collection} 
 \operation{setCommandeCollection(Collection) : void} 
 
 \end{class} 
 
-\begin{class}[text width=4cm]{Panier}{6,8.5} 
+\begin{class}[text width=4cm]{Panier}{6,8} 
 \attribute{idPanier :int} 
 \attribute{prixTotalPanier: float} 
 \attribute{dateEnregistrement: String} 
@@ -148,11 +121,7 @@
 \operation{Panier(): void} 
 \operation{Panier(Integer ) : void}
 \operation{getIdPanier()  : int} 
-\operation{setIdPanier(Integer) : void} 
-\operation{getPrixTotalPanier() : float} 
-\operation{setPrixTotalPanier(Float) : void} 
-\operation{getDateEnregistrement() : string}
-\operation{setDateEnregistrement(String) : void} 
+
 \operation{getPanierProduitCollection() : Collection} 
 \operation{setPanierProduitCollection(Collection) : void} 
 \operation{getClient(): Client} 
@@ -160,56 +129,13 @@
 \operation{setClient(Client): void} 
 \end{class} 
 
-\begin{class}[text width=4cm]{Panier}{0,-8.5} 
-\attribute{panierProduitPK :PanierProduitPK} 
-\attribute{quantite: int} 
-\attribute{produit: Produit} 
-\attribute{panier: Panier} 
-
-
-
-
-\operation{PanierProduit(): void} 
-\operation{PanierProduit(PanierProduitPK ) : void}
-\operation{PanierProduit(String, int  ) : void}
-\operation{getPanierProduitPK()  : PanierProduitPK} 
-\operation{setPanierProduitPK(PanierProduitPK) : void} 
-\operation{getQuantite() : int} 
-\operation{setQuantite(Int) : void} 
-\operation{getProduit() : Produit}
-\operation{setProduit(Produit) : void} 
-\operation{getPanier()  : Panier} 
-\operation{setPanier(Panier) : void} 
-
-
-
-\end{class} 
-
-\begin{class}[text width=4cm]{Panier}{5,-8.5} 
-\attribute{model :String} 
-\attribute{idPanier: int} 
 
 
 
 
 
-\operation{PanierProduitPK(): void} 
-\operation{PanierProduitPK(String, int ) : void}
-\operation{getModel() : string}
- 
-\operation{setModel(String) : void} 
-\operation{getIdPanier() : int} 
-\operation{setIdPanier(int) : void} 
 
-
-
-
-\end{class} 
-
-
-
-
-\begin{class}[text width=4cm]{Produit}{11,-8.5} 
+\begin{class}[text width=4cm]{Produit}{11,0} 
 \attribute{libProduit :String} 
 \attribute{model: String} 
 \attribute{image: String} 
@@ -218,7 +144,7 @@
 \attribute{dateAjout:String} 
 \attribute{qteStock: int} 
 \attribute{panierProduitCollection:Collection} 
-\attribute{produitCommandeCouleurCollection:Collection} 
+
 
 
 
@@ -230,6 +156,15 @@
 
 \end{class} 
 
+
+\unidirectionalAssociation{Administrateur}{gere}{1..*}{ Client}
+\unidirectionalAssociation{Administrateur}{gere}{1..*}{ Facture}
+\unidirectionalAssociation{Client}{Passe}{0..*}{ Commande}
+\unidirectionalAssociation{Produit}{Appartient}{1..*}{ Categories}
+\composition{Commande}{a}{1..n}{ Facture}
+\unidirectionalAssociation{Client}{a}{1..1}{ Panier}
+\composition{Panier}{contient }{1..*}{ Produit}
+\composition{Commande}{contient }{1..*}{ Produit}
 
 \end{tikzpicture}
 \end{document}
