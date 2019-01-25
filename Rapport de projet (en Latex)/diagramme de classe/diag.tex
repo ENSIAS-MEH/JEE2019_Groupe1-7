@@ -1,8 +1,13 @@
  \documentclass{article}
 \usepackage{pgf-umlcd}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[french]{babel}
+\usepackage{fullpage}
 \begin{document}
 \begin{tikzpicture} 
 %administrateur%
+\tiny
 \begin{class}[text width=4cm,]{Administrateur}{0,0} 
 \attribute{nomAdmin : String} 
 \attribute{prenomAdmin : String} 
@@ -26,18 +31,86 @@
 \operation{setEmailAdmin(String ) : void} 
 
 \end{class} 
-\begin{class}[text width=4cm,]{Categories}{0,0} 
+
+\begin{class}[text width=4cm]{Categories}{0,8.5} 
 \attribute{nomAdmin : String} 
 \attribute{libCategorie : String} 
-\attribute{produitCollection : Collection<Produit>} 
+\attribute{produitCollection : Collection} 
 \operation{Categorie() : void} 
 \operation{Categorie(int) : void}
 \operation{getIdCategorie( ) : int} 
-\operation{getProduitCollection( ) : Collection<Produit>} 
+\operation{getProduitCollection( ) : Collection} 
 \operation{getLibCategorie( ) : String} 
 \operation{setIdCategorie(int ) : void} 
 \operation{setLibCategorie(String ) : void}
-\operation{setProduitCollection(Collection<Produit>) : void} 
+\operation{setProduitCollection(Collection) : void} 
 \end{class} 
+
+\begin{class}[text width=4cm]{Client}{5,0} 
+\attribute{login : String} 
+\attribute{nomClient : String} 
+\attribute{prenomClient : String} 
+\attribute{emailClient : String} 
+\attribute{dateInscription : String} 
+\attribute{motdepasse : String} 
+\attribute{sexe : String} 
+\attribute{dateNaissance : String} 
+\attribute{adresse : String} 
+
+\attribute{commandeCollection : Collection} 
+\attribute{panierCollection : CollectionString} 
+
+\operation{Client() : void} 
+\operation{Client(String login): void}
+\operation{getLogin() :String} 
+\operation{setLogin(String ) : void} 
+\operation{getNomClient() : String} 
+\operation{setNomClient(String ): void}
+\operation{getPrenomClient() : String}  
+\operation{setPrenomClient(String ) : void}
+\operation{getEmailClient() : string} 
+\operation{setEmailClient(String)  : void} 
+\operation{getDateInscription() : void} 
+\operation{setDateInscription(String ) : string} 
+\operation{getMotdepasse()  : string} 
+\operation{setMotdepasse(String) : void} 
+\operation{getSexe(): string} 
+\operation{setSexe(String sexe) : void} 
+\operation{getDateNaissance() : string} 
+\operation{setDateNaissance(String ): void} 
+\operation{getAdresse() : string} 
+\operation{setAdresse(String ) : void} 
+\operation{getCommandeCollection()  : collection} 
+\operation{setCommandeCollection(Collection ): void} 
+\operation{getPanierCollection() : collection} 
+\operation{setPanierCollection(Collection): void} 
+\end{class} 
+
+\begin{class}[text width=5.3cm]{Commande}{11,0} 
+\attribute{idCmd :int} 
+\attribute{ldateCmd : String} 
+\attribute{etatCmd : string} 
+\attribute{client : Client} 
+\attribute{facture: Facture} 
+\attribute{etatCmd : Collection} 
+
+
+
+\operation{Commande() : void} 
+\operation{Commande(int) : void}
+\operation{getIdCmd() : int} 
+\operation{setIdCmd(Integer) : void} 
+\operation{getDateCmd() : string} 
+\operation{setDateCmd(String ) : void} 
+\operation{getEtatCmd() : string}
+\operation{setEtatCmd(String ) : void} 
+\operation{getClient() : client} 
+\operation{setClient(Client ) : void} 
+\operation{getFacture() : Facture} 
+\operation{setFacture(Facture )  : void} 
+\operation{getProduitCommandeCouleurCollection(): Collection} 
+\operation{setProduitCommandeCouleurCollection(Collection) : void} 
+\end{class} 
+
 \end{tikzpicture}
 \end{document}
