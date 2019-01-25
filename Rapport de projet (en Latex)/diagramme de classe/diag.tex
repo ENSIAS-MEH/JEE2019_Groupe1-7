@@ -112,5 +112,53 @@
 \operation{setProduitCommandeCouleurCollection(Collection) : void} 
 \end{class} 
 
+
+\begin{class}[text width=4cm]{Facture}{11,8.5} 
+\attribute{numFacture :String} 
+\attribute{idCmd : int} 
+\attribute{prixTotal : float} 
+\attribute{commandeCollection : Collection} 
+
+
+
+
+\operation{Facture(): void} 
+\operation{Facture(string) : void}
+\operation{Facture(string,int) : void} 
+\operation{getNumFacture() : string} 
+\operation{setNumFacture(String) : void} 
+\operation{getIdCmd() : int} 
+\operation{setIdCmd(int) : void}
+\operation{getPrixTotal() : Float} 
+\operation{setPrixTotal(Float) : void} 
+\operation{getCommandeCollection() : Collection} 
+\operation{setCommandeCollection(Collection) : void} 
+
+\end{class} 
+
+\begin{class}[text width=4cm]{Panier}{6,8.5} 
+\attribute{idPanier :int} 
+\attribute{prixTotalPanier: float} 
+\attribute{dateEnregistrement: String} 
+\attribute{panierProduitCollection: Collection} 
+\attribute{client: Client} 
+
+
+
+\operation{Panier(): void} 
+\operation{Panier(Integer ) : void}
+\operation{getIdPanier()  : int} 
+\operation{setIdPanier(Integer) : void} 
+\operation{getPrixTotalPanier() : float} 
+\operation{setPrixTotalPanier(Float) : void} 
+\operation{getDateEnregistrement()) : string}
+\operation{setDateEnregistrement(String) : void} 
+\operation{getPanierProduitCollection() : Collection} 
+\operation{setPanierProduitCollection(Collection) : void} 
+\operation{getClient(): Client} 
+
+\operation{setClient(Client): void} 
+\end{class} 
+
 \end{tikzpicture}
 \end{document}
