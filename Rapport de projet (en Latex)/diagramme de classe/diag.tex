@@ -151,7 +151,7 @@
 \operation{setIdPanier(Integer) : void} 
 \operation{getPrixTotalPanier() : float} 
 \operation{setPrixTotalPanier(Float) : void} 
-\operation{getDateEnregistrement()) : string}
+\operation{getDateEnregistrement() : string}
 \operation{setDateEnregistrement(String) : void} 
 \operation{getPanierProduitCollection() : Collection} 
 \operation{setPanierProduitCollection(Collection) : void} 
@@ -159,6 +159,77 @@
 
 \operation{setClient(Client): void} 
 \end{class} 
+
+\begin{class}[text width=4cm]{Panier}{0,-8.5} 
+\attribute{panierProduitPK :PanierProduitPK} 
+\attribute{quantite: int} 
+\attribute{produit: Produit} 
+\attribute{panier: Panier} 
+
+
+
+
+\operation{PanierProduit(): void} 
+\operation{PanierProduit(PanierProduitPK ) : void}
+\operation{PanierProduit(String, int  ) : void}
+\operation{getPanierProduitPK()  : PanierProduitPK} 
+\operation{setPanierProduitPK(PanierProduitPK) : void} 
+\operation{getQuantite() : int} 
+\operation{setQuantite(Int) : void} 
+\operation{getProduit() : Produit}
+\operation{setProduit(Produit) : void} 
+\operation{getPanier()  : Panier} 
+\operation{setPanier(Panier) : void} 
+
+
+
+\end{class} 
+
+\begin{class}[text width=4cm]{Panier}{5,-8.5} 
+\attribute{model :String} 
+\attribute{idPanier: int} 
+
+
+
+
+
+\operation{PanierProduitPK(): void} 
+\operation{PanierProduitPK(String, int ) : void}
+\operation{getModel() : string}
+ 
+\operation{setModel(String) : void} 
+\operation{getIdPanier() : int} 
+\operation{setIdPanier(int) : void} 
+
+
+
+
+\end{class} 
+
+
+
+
+\begin{class}[text width=4cm]{Produit}{11,-8.5} 
+\attribute{libProduit :String} 
+\attribute{model: String} 
+\attribute{image: String} 
+\attribute{categorie: Categorie} 
+\attribute{prix: int} 
+\attribute{dateAjout:String} 
+\attribute{qteStock: int} 
+\attribute{panierProduitCollection:Collection} 
+\attribute{produitCommandeCouleurCollection:Collection} 
+
+
+
+\operation{getPrix(): int} 
+\operation{ Produit() : void}
+\operation{Produit(String  ) : void}
+
+
+
+\end{class} 
+
 
 \end{tikzpicture}
 \end{document}
