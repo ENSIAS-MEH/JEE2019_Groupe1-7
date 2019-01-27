@@ -1,0 +1,423 @@
+\chapter{Analyse et conception}
+
+On expose, dans ce chapitre, la solution conceptuelle qu'on a proposée et cette conception du système à réaliser qui a pour but de rendre flexible la tâche de la gestion. En d’autre terme, ce chapitre devrait répondre à la question : comment faire ? La structure de ce chapitre dépend de la nature de ce projet. la phase de conception d’un système d’information nécessite des méthodes permettant de mettre en place un modèle. pour en faire on a utilisé le Langage de Modélisation Unifié, de l'anglais Unified Modeling Language UML, qui est un langage de modélisation graphique conçu pour fournir une méthode normalisée pour visualiser la conception d'un système. Il est couramment utilisé en développement logiciel et en conception orientée objet.
+
+\section{Le diagramme du cas d’utilisation}
+
+Le rôle des diagrammes de cas d’utilisation est de recueillir, d’analyser et d’organiser les besoins, ainsi que de recenser les grandes fonctionnalités d’un système. Il s’agit donc de la première étape UML pour la conception d’un système.
+
+\subsection{Les composants d'un diagramme de cas d'utilisation}
+
+Le diagramme de cas se compose de trois éléments principaux :
+\bigbreak
+\begin{itemize}
+\item Un Acteur : c’est l’idéalisation d’un rôle joué par une personne externe, un processus ou une chose qui interagit avec un système. Il se représente par un petit bonhomme avec son nom inscrit dessous.
+\item Un cas d’utilisation : c’est une unité cohérente représentant une fonctionnalité visible de l’extérieur. Il réalise un service de bout en bout, avec un déclenchement, un déroulement et une fin, pour l’acteur qui l’initie.
+\item Une relation : trois types de relations sont pris en charge par la norme UML et sont graphiquement représentés par des types particuliers de ces relations. Les relations indiquent que le cas d'utilisation source présente les mêmes conditions d'exécution que le cas issu. Une relation simple entre un acteur et une utilisation est un trait simple.
+\end{itemize}
+
+
+\subsection{Diagramme de cas d’utilisation du projet}
+
+\begin{figure}[H]
+\centering
+\scalebox{0.99}{
+\begin{tikzpicture}
+\begin{umlsystem}[x=4, fill=red!10]{E-boutique de livre} 
+  \umlusecase[name=case1,x=3]{consulter livres}
+  \umlusecase[name=case13,x=3,y=-1]{creer un compte} 
+  \umlusecase[name=case2,x=3,y=-2.7, width=1.7cm]{ajouter des livres au panier}
+  \umlusecase[name=case3,x=3,y=-4.7, fill=green!20]{s'authentifier}
+  \umlusecase[name=case7,y=-7]{enregistrer panier}
+  \umlusecase[name=case8,y=-9, width=2cm]{passer commande}
+  \umlusecase[name=case9,y=-11, width=2cm]{consulter ses commandes}
+  \umlusecase[name=case6,x=6, y=-7]{gerer les categories}
+  \umlusecase[name=case10,x=6, y=-8.5]{gerer les livres}
+  \umlusecase[name=case11,x=6, y=-10]{gerer les clients}
+  \umlusecase[name=case12,x=6, y=-11.5]{gerer les commandes}
+
+\end{umlsystem}
+
+\umlactor{visiteur} 
+\umlactor[y=-6.5]{client} 
+\umlactor[x=14.5, y=-6.5]{administrateur}
+
+\umlinherit{client}{visiteur}
+\umlassoc{visiteur}{case1}
+\umlassoc{visiteur}{case2} 
+\umlassoc{visiteur}{case13}
+\umlassoc{client}{case3}
+\umlassoc{client}{case7}
+\umlassoc{client}{case8} 
+\umlassoc{client}{case9} 
+\umlassoc{administrateur}{case3} 
+\umlassoc{administrateur}{case6}
+\umlassoc{administrateur}{case10}
+\umlassoc{administrateur}{case11}
+\umlassoc{administrateur}{case12}
+
+\umlinclude[name=incl]{case7}{case3}
+\umlinclude[name=incl]{case8}{case3}
+\umlinclude[name=incl]{case9}{case3}
+\umlinclude[name=incl]{case6}{case3}
+\umlinclude[name=incl]{case10}{case3}
+\umlinclude[name=incl]{case11}{case3}
+\umlinclude[name=incl]{case12}{case3}
+
+\end{tikzpicture}}
+\caption{Diagramme de cas d'utilisation de l'E-boutique de livre}
+\end{figure}
+
+
+\section{Les diagrammes de séquences}
+
+Un diagramme de séquences est un diagramme d'interaction qui expose en détail la façon dont les opérations sont effectuées : quels messages sont envoyés et quand ils le sont.
+
+\subsection{Le modèle MVC}
+En ce qui suit, nous présenterons quelques diagrammes de séquences relatifs aux cas d’utilisations présentes.
+Les diagrammes de séquences sont basés sur le modèle MVC :
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance=1cm, auto]  
+\tikzset{
+    mynode/.style={rectangle,rounded corners,draw=black, top color=white, bottom color=yellow!50,very thick, inner sep=1em, minimum size=3em, text centered},
+    myarrow/.style={->, >=latex', shorten >=1pt, thick},
+    mylabel/.style={text width=7em, text centered} 
+}  
+\node[mynode] (Model) {Model};  
+\node[below=3cm of Model] (dummy) {}; 
+\node[mynode, left=of dummy] (View) {View};  
+\node[mynode, right=of dummy] (Controler) {Controler};
+
+% The text width of 7em forces the text to break into two lines. 
+
+\draw[myarrow] (Model.west) -- ++(-0,0) -- ++(0,0) -|  (View.north);	
+\draw[myarrow] (Controler.north) -- ++(0,1) -- ++(0,0) |-  (Model.east);
+\draw[myarrow] (Controler.west) -- ++(0,0) -- ++(0,0) --  (View.east);
+% There is a slight overlap of the arrows with the (Model) south edge
+% because creating the offset in another way didn't compile. 
+ 
+
+% The swap command corrects the placement of the text.
+
+\end{tikzpicture} 
+    \caption{L'architecture MVC}
+    
+\end{figure}
+
+\begin{itemize}
+\item Modèle : cette partie gère les données du site. Son rôle est d'aller récupérer les informations « brutes » dans la base de données, de les organiser et de les assembler pour qu'elles puissent ensuite être traitées par le contrôleur. On y trouve donc entre autres les requêtes SQL.
+\item Vue : cette partie se concentre sur l'affichage. Elle ne fait presque aucun calcul et se contente de récupérer des variables pour savoir ce qu'elle doit afficher. On y trouve essentiellement du code HTML mais aussi quelques boucles et conditions très simples, pour afficher par exemple une liste de messages.
+\item Contrôleur : cette partie gère la logique du code qui prend des décisions. C'est en quelque sorte l'intermédiaire entre le modèle et la vue : le contrôleur va demander au modèle les données, les analyser, prendre des décisions et renvoyer le texte à afficher à la vue. Le contrôleur contient exclusivement du code Java. C'est notamment lui qui détermine si le visiteur a le droit de voir la page ou non (gestion des droits d'accès).
+\end{itemize}
+
+
+\subsection{Diagrammes de séquences du projet}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+\begin{umlseqdiag}
+\umlactor[no ddots]{Visiteur}
+\umlboundary[class=Vue, fill=blue!20]{FenetreAuth}
+\umlcontrol[class=Controleur,x=8.5, fill=blue!20]{ServletConnexion}
+\umlentity[class=Modele,x=13, fill=blue!20]{ClientDAO}
+
+\begin{umlcall}[op=SaisirInformation(), type=synchron]{Visiteur}{FenetreAuth}
+\begin{umlcallself}[op=VerificationChamps(), type=synchron]{FenetreAuth}
+\end{umlcallself}
+\begin{umlcall}[op=EnvoyerInfo(), type=synchron]{FenetreAuth}{ServletConnexion}
+\begin{umlcall}[op=EnvoyerInfo(string\,String), type=synchron,return=Afficher()]{ServletConnexion}{ClientDAO}
+\begin{umlcallself}[op=VerifiInfos(), type=synchron]{ClientDAO}
+\end{umlcallself}
+\end{umlcall}
+\begin{umlfragment}[type=alt, label=Informations fausses]
+\begin{umlcall}[op=MessageErreur(), type=synchron]{ServletConnexion}{FenetreAuth}
+\umlcreatecall[no ddots, draw obj=red!70!black, fill obj=red!20, draw=blue!70,x=1.5]{FenetreAuth}{Erreur Auth} 
+\begin{umlcall}[op=AfficherErreur(), type=synchron]{FenetreAuth}{Erreur Auth}
+\begin{umlcall}[op=ResaisirInfo(), type=synchron]{Erreur Auth}{Visiteur}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+\end{umlfragment}
+\end{umlcall}
+\end{umlcall}
+\begin{umlfragment}[type=alt, label=Informations correctes]
+\begin{umlcall}[op=CompteClient(), type=synchron]{ServletConnexion}{FenetreAuth}
+\umlcreatecall[no ddots, draw obj=green!70!black, fill obj=green!20, draw=blue!70,x=1.5]{FenetreAuth}{Espace Client} 
+\end{umlcall}
+\end{umlfragment} 
+
+
+
+
+\end{umlseqdiag}
+\end{tikzpicture}
+    \caption{Diagramme de séquences d’authentification du client}
+\end{figure}
+\bigbreak
+
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.95}{
+\begin{tikzpicture}
+\begin{umlseqdiag}
+\umlactor[no ddots,x=-2]{Client}
+\umlboundary[class=Vue,x=1.5, fill=blue!20]{AchatLivre}
+\umlcontrol[class=Controleur,x=5, fill=blue!20]{ControleAchat}
+\umlentity[class=Modele,x=9, fill=blue!20]{ModelAchat}
+
+\begin{umlcall}[op=ChoisirLivres(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=PasserCmd(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=Poursuite(), type=synchron]{AchatLivre}{ControleAchat}
+\begin{umlcall}[op=Poursuite, type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
+\begin{umlcallself}[op=Verification(), type=synchron]{ModelAchat}
+\end{umlcallself}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+
+
+\begin{umlfragment}[type=alt,label= Sans Auth,inner ysep=6]
+
+\begin{umlfragment}[type=alt,label= Client existant]
+\begin{umlcall}[op=Auth(),type=synchron]{Client}{AchatLivre}
+\begin{umlcallself}[op=Verification(), type=synchron]{AchatLivre}
+\end{umlcallself}
+\end{umlcall}
+\begin{umlcall}[op=Poursuite(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=Enregistrement(), type=synchron]{AchatLivre}{ControleAchat}
+\begin{umlcall}[op=Enregistrement(), type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
+\end{umlcall}
+\begin{umlcall}[op=AfficherMsg(), type=synchron]{ControleAchat}{AchatLivre}
+\begin{umlcall}[op=CmdRecue(), type=synchron]{AchatLivre}{Client}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+\end{umlfragment}
+
+
+
+\begin{umlfragment}[type=alt,label= Client non existant]
+\begin{umlcall}[op=CreerCompte(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=Enregistrement(), type=synchron]{AchatLivre}{ControleAchat}
+\begin{umlcall}[op=Enregistrement(), type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
+\end{umlcall}
+\begin{umlcall}[op=CompteClient(), type=synchron]{ControleAchat}{AchatLivre}
+\umlcreatecall[no ddots, draw obj=green!70!black, fill obj=green!20, draw=blue!70,x=-0.7]{AchatLivre}{Espace Client}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+\end{umlfragment}
+\end{umlfragment}
+
+\begin{umlfragment}[type=alt,label= Avec Auth]
+\begin{umlcall}[op=Poursuite(), type=synchron]{Client}{AchatLivre}
+\begin{umlcall}[op=Commander(), type=synchron]{AchatLivre}{ControleAchat}
+\begin{umlcall}[op=Commander(), type=synchron,return=Reponse()]{ControleAchat}{ModelAchat}
+\begin{umlcallself}[op=Enregistrement(), type=synchron]{ModelAchat}
+\end{umlcallself}
+\end{umlcall}
+\begin{umlcall}[op=AfficherMsg(), type=synchron]{ControleAchat}{AchatLivre}
+\begin{umlcall}[op=CmdRecue(), type=synchron]{AchatLivre}{Client}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+\end{umlcall}
+\end{umlfragment}
+\end{umlcall}
+
+\end{umlseqdiag}
+\end{tikzpicture}
+}
+    \caption{Diagramme de séquences d’achats de livres}
+\end{figure}
+
+Diagramme de séquences d’authentification du client (cf. fig. 2.3)
+\begin{itemize}
+\item Le client entre son login et son mot de passe.
+\item Une vérification se lance dans la base de données.
+\item Après un temps de réponse ou l’authentification, se valide ou un message d’erreur s’affiche.
+\end{itemize}
+\bigbreak
+Diagramme de séquences d’achats de livres (cf. fig. 2.4)
+\begin{itemize}
+\item le client choisit les livres.
+\item il lance une procédure de la commande.
+\item une vérification se lance dans la base de données.
+\item si le client est déjà authentifié, il peut valider sa commande.
+\item sinon le client doit s’authentifier s'il a déjà un compte, ou bien créer un compte dans les deux cas la commande se valide.
+\end{itemize}
+
+\section{Le diagramme de classe}
+Un diagramme de classes UML décrit les structures d'objets et d'informations utilisées sur notre site web, à la fois en interne et en communication avec ses utilisateurs. Il décrit les informations sans faire référence à une implémentation particulière. Ses classes et relations peuvent être implémentées de nombreuses manières, comme les tables de bases de données.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture} 
+%administrateur%
+\tiny
+\begin{class}[text width=4cm,]{Administrateur}{0,8} 
+\attribute{nomAdmin : String} 
+\attribute{prenomAdmin : String} 
+\attribute{login : String} 
+\attribute{motdepasse : String} 
+\attribute{sexe : String} 
+\attribute{emailAdmin : String} 
+\operation{Administrateur() : void} 
+\operation{Administrateur(String) : void} 
+
+\operation{getLogin() : String} 
+\operation{setLogin(String ) : void} 
+\operation{getMotdepasse() : String} 
+\operation{setMotdepasse(String ) : void} 
+\operation{getSexe() : String} 
+\operation{setSexe(String ) : void} 
+\operation{String getEmailAdmin() : void} 
+\operation{setEmailAdmin(String ) : void} 
+
+\end{class} 
+
+\begin{class}[text width=4cm]{Categories}{11,8.5} 
+\attribute{nomAdmin : String} 
+\attribute{libCategorie : String} 
+\attribute{produitCollection : Collection} 
+\operation{Categorie() : void} 
+\operation{Categorie(int) : void}
+\operation{getIdCategorie( ) : int} 
+\operation{getProduitCollection( ) : Collection} 
+\operation{getLibCategorie( ) : String} 
+\operation{setIdCategorie(int ) : void} 
+\operation{setLibCategorie(String ) : void}
+\operation{setProduitCollection(Collection) : void} 
+\end{class} 
+
+\begin{class}[text width=4cm]{Client}{5,0} 
+\attribute{login : String} 
+\attribute{nomClient : String} 
+\attribute{prenomClient : String} 
+\attribute{emailClient : String} 
+\attribute{dateInscription : String} 
+\attribute{motdepasse : String} 
+\attribute{sexe : String} 
+\attribute{dateNaissance : String} 
+\attribute{adresse : String} 
+
+\attribute{commandeCollection : Collection} 
+\attribute{panierCollection : CollectionString} 
+
+\operation{Client() : void} 
+\operation{Client(String login): void}
+\operation{getLogin() :String} 
+\operation{setLogin(String ) : void} 
+
+
+\operation{getCommandeCollection()  : collection} 
+\operation{setCommandeCollection(Collection ): void} 
+\operation{getPanierCollection() : collection} 
+\operation{setPanierCollection(Collection): void} 
+\end{class} 
+
+\begin{class}[text width=5.3cm]{Commande}{5,-8} 
+\attribute{idCmd :int} 
+\attribute{ldateCmd : String} 
+\attribute{etatCmd : string} 
+\attribute{client : Client} 
+\attribute{facture: Facture} 
+\attribute{etatCmd : Collection} 
+
+
+
+\operation{Commande() : void} 
+\operation{Commande(int) : void}
+\operation{getIdCmd() : int} 
+\operation{setIdCmd(Integer) : void} 
+
+\operation{getFacture() : Facture} 
+\operation{setFacture(Facture )  : void} 
+\operation{getProduitCommandeCouleurCollection(): Collection} 
+\operation{setProduitCommandeCouleurCollection(Collection) : void} 
+\end{class} 
+
+
+\begin{class}[text width=4cm]{Facture}{0,-4} 
+\attribute{numFacture :String} 
+\attribute{idCmd : int} 
+\attribute{prixTotal : float} 
+\attribute{commandeCollection : Collection} 
+
+
+
+
+\operation{Facture(): void} 
+\operation{Facture(string) : void}
+
+\operation{setPrixTotal(Float) : void} 
+\operation{getCommandeCollection() : Collection} 
+\operation{setCommandeCollection(Collection) : void} 
+
+\end{class} 
+
+\begin{class}[text width=4cm]{Panier}{6,8} 
+\attribute{idPanier :int} 
+\attribute{prixTotalPanier: float} 
+\attribute{dateEnregistrement: String} 
+\attribute{panierProduitCollection: Collection} 
+\attribute{client: Client} 
+
+
+
+\operation{Panier(): void} 
+\operation{Panier(Integer ) : void}
+\operation{getIdPanier()  : int} 
+
+\operation{getPanierProduitCollection() : Collection} 
+\operation{setPanierProduitCollection(Collection) : void} 
+\operation{getClient(): Client} 
+
+\operation{setClient(Client): void} 
+\end{class} 
+
+
+
+
+
+
+
+\begin{class}[text width=4cm]{Produit}{11,0} 
+\attribute{libProduit :String} 
+\attribute{model: String} 
+\attribute{image: String} 
+\attribute{categorie: Categorie} 
+\attribute{prix: int} 
+\attribute{dateAjout:String} 
+\attribute{qteStock: int} 
+\attribute{panierProduitCollection:Collection} 
+
+
+
+
+\operation{getPrix(): int} 
+\operation{ Produit() : void}
+\operation{Produit(String  ) : void}
+
+
+
+\end{class} 
+
+
+\unidirectionalAssociation{Administrateur}{gere}{1..*}{ Client}
+\unidirectionalAssociation{Administrateur}{gere}{1..*}{ Facture}
+\unidirectionalAssociation{Client}{Passe}{0..*}{ Commande}
+\unidirectionalAssociation{Produit}{Appartient}{1..*}{ Categories}
+\composition{Commande}{a}{1..n}{ Facture}
+\unidirectionalAssociation{Client}{a}{1..1}{ Panier}
+\composition{Panier}{contient }{1..*}{ Produit}
+\composition{Commande}{contient }{1..*}{ Produit}
+
+\end{tikzpicture}
+    \caption{Diagramme de classes}
+
+\end{figure}

@@ -1,0 +1,151 @@
+
+
+\chapter{Présentation du projet}
+
+Aujourd’hui, le commerce électronique est considéré comme un dossier prioritaire par de nombreuses organisations internationales . L'objectif de notre projet est le développement d’un site web d’e-commerce afin de gérer un ensemble de tâches facilitant l’achat de livre en ligne sans se déplacer sur place.
+%note en bas de page
+
+\section{Analyse du Sujet}
+
+
+
+
+\begin{figure}[H]
+    \centering
+\scalebox{0.70}{
+\begin{forest}
+ for tree={
+  font=\sffamily\bfseries,
+  line width=1pt,
+  draw=linecol,
+  ellip,
+  align=center,
+  child anchor=north,
+  parent anchor=south,
+  drop shadow,
+  l sep=1cm,
+  edge path={
+    \noexpand\path[color=linecol, rounded corners=5pt,
+      >={Stealth[length=10pt]}, line width=1pt, ->, \forestoption{edge}]
+      (!u.parent anchor) -- +(0,-5pt) -|
+      (.child anchor)\forestoption{edge label};
+    },
+  where level={3}{tier=tier3}{},
+  where level={0}{l sep-=15pt}{},
+  where level={1}{
+    if n={1}{
+      edge path={
+        \noexpand\path[color=linecol, rounded corners=5pt,
+          >={Stealth[length=10pt]}, line width=1pt, ->,
+          \forestoption{edge}]
+          (!u.south) --++(0,-8pt) -| (.child anchor)\forestoption{edge label};
+        },
+    }{
+      edge path={
+        \noexpand\path[color=linecol, rounded corners=5pt,
+          >={Stealth[length=10pt]}, line width=1pt, ->,
+          \forestoption{edge}]
+          (!u.south) --++(0,-8pt) -| (.child anchor)\forestoption{edge label};
+        },
+     }
+    }{},
+  }
+   [Les Cmds des clients sur l'E-boutique,l sep=1.5cm, outer color=col3out
+    [Reception de la Cmd 1,name=sensor1,
+    [validation manuelle de la Cmd 1, rect, name=sse1
+    ]
+  ]
+  [Reception de la Cmd 2,name=sensor2,
+    [validation manuelle de la Cmd 2, rect, name=sse2
+    ]
+  ]
+  [, phantom, calign with current
+    [A\\B, phantom
+      [Livraison des commandes aux clients, orect, name=us
+        [{Clients satisfaits}, oellip
+        ]
+      ]
+    ]
+  ]
+  [Reception de la Cmd N-1,name=sensor3,
+    [validation manuelle de la Cmd N-1, rect, name=sse3
+    ]
+  ]
+  [Reception de la Cmd N,name=sensor4,
+    [validation manuelle de la Cmd N, rect, name=sse4
+    ]
+  ]
+]
+  \begin{scope}[color = linecol, rounded corners = 5pt,
+    >={Stealth[length=10pt]}, line width=1pt, ->]
+    \draw (sse2.south) -- (us.north -| sse2.south);
+    \draw (sse3.south) -- (us.north -| sse3.south);
+    \coordinate (c1) at ($(sse1.south)!2/5!(sse2.south)$);
+    \coordinate (c2) at ($(sse3.south)!3/5!(sse4.south)$);
+    \draw (sse1.south) -- +(0,-22pt) -| (us.north -| c1);
+    \draw (sse4.south) -- +(0,-22pt) -| (us.north -| c2);
+    \node[draw,dash dot,fit=(sensor1)(sse4)(sensor4),inner ysep=12pt,]{};
+    \coordinate (m1) at ($(sse2)!0.5!(sensor2)$);
+    \coordinate (m2) at ($(sensor2)!0.5!(sensor3)$);
+    \node[scale=3] at (m1-|m2) {...};
+  \end{scope}
+\end{forest}}
+    \caption{Schéma descriptif}
+\end{figure}
+
+
+
+
+
+La procédure de passage des livres de la boutique vers les mains du client via l'E-boutique est la suivante :
+
+Le client choisit les livres qu'il veut ainsi que la quantité et ensuite passe sa commande.
+Le gestionnaire du site marchand valide la commande de cet internaute et transmet tous les éléments au livreur. 
+Le livreur prépare la commande et réalise les expéditions.
+
+\newpage
+
+\section{Étude de l'existant}
+
+Pour acheter un livre, le client doit se déplacer directement au local de la boutique de livre. Ses déplacements peuvent être inutiles, et même peuvent provoquer un gaspillage de temps. D’ailleurs, même le vendeur n’a aucun moyen pour mettre à disposition ses annonces de vente et services, à l’exception des supports traditionnels tels que les journaux ou les petites affiches. Ainsi, un moyen fiable et automatisé permettant d’informer un grand nombre de clients des offres de vente et des services nécessaires. Divers autres traitements sont, d’ailleurs, sources de problèmes, adoptant les méthodes traditionnelles de travail :
+
+\begin{itemize}
+\item Le règlement des factures se fait en espèce ou par chèque, sur place. 
+\item L’enregistrement des clients se fait manuellement sur papier. 
+\item Les livres sont classés par des catégories non liées et non hiérarchisées, ce qui rend la recherche plus pénible.
+\end{itemize}
+
+
+
+\section{Solutions proposées}
+
+%Quoi :
+Grâce à Internet, de nouvelles perspectives de développement apparaissent dans l'élargissement du marché économique.
+
+La création d’un site Internet a pour but de valoriser l'image de la société et faire des économies. L'utilisation d'Internet, comme segment de communication de masse, permet également de baisser des coûts marketing et d'autres frais. Avec la transmission du haut débit et la sécurisation augmentée des moyens sécurisés de paiement, la confiance des utilisateurs en ce qui concerne l'e-commerce est croissante. La plupart des personnes adultes utilisent, aujourd’hui, Internet pour faire des achats. Les consommateurs et les entreprises s'orientent de plus en plus vers les boutiques en ligne qui permettent la comparaison, la disponibilité des produits et la vérification des prix d’où l’économie considérable du temps.
+\bigbreak
+Ce projet consiste donc à la mise en place d’un site Web dynamique qui gère la commercialisation de livres. Ceci est possible à travers des catalogues en ligne. Les clients peuvent consulter le site et commander des livres après une inscription, qui sont par la suite livrés à domicile.\\
+
+Cette boutique en ligne permettra d’offrir beaucoup des services à savoir :
+\begin{itemize}
+\item Recherche de livre,
+\item Consultation de catégories de livre,
+\item Lancer une commande en ligne,
+\end{itemize}
+\bigbreak
+Cette application Web permettra de cibler une nouvelle catégorie de clientèles , et d’offrir une meilleure qualité de service en communication et en commerce. Ce site devra contenir deux interfaces séparées :\\
+
+Partie administrateur du site : l’administrateur du site doit s’authentifier avec son login et son mot de passe à partir de la page d’accueil. Après son authentification comme administrateur, il pourra accéder à la page qui lui permettra de gérer les outils d’administration. Le site affichera toutes les tâches qui peuvent être effectuées par l’administrateur qui pourra:
+
+\begin{itemize}
+\item Ajouter un livre : chaque livre est caractérisé par son nom et sa catégorie.
+\item Gérer des comptes : ajout ou suppression d’un compte. Chaque compte est caractérisé par le login, le mot de passe, le nom, le prénom et l'adresse du client.
+\item Déconnexion : cela permet la sécurité de l’interface.
+\end{itemize}
+\bigbreak
+Partie client : cette interface doit être accessible à n’importe quel internaute cherchant des livres et effectuant des commandes.
+
+%Detail :
+%%Bla(cf. ref. \cite{cite6}).
+%citation référencé dans le document "bibliographie.bib" inclus à la fin du document
+
